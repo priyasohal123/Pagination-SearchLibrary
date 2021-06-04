@@ -4,7 +4,6 @@
 
 	require_once('/Applications/MAMP/htdocs/Mock_test_1/pagination1.0/prepared_query.php');
 
-
 	$application_obj = new ManageApp();
 
 	$connection_mock_chat = NULL;
@@ -52,19 +51,21 @@
 	        $query_details=array_combine($keys, $value1);
 	        array_push($query_data, $query_details);
 	    }
-
+		
 	    $get_query_and_data=$obj->get_query_and_data($query_data); 
+		
 	    $result=array();
 	   
 	    if($get_query_and_data['query']!='')
 	    {  
-	        $result=mysqli_prepared_query($connection_mock_chat,$get_query_and_data['query'],"",$params);        
+	        $result=mysqli_prepared_query($connection_mock_chat,$get_query_and_data['query'],"",$params);       
+			
 	    }
-
+		
 	    $get_ids=$obj->get_ids($result,$get_query_and_data['string'],$get_query_and_data['get_ids']);
-	   
+		
 	    $where_data=$obj->searching_data($get_ids);
-
+		
 	    $table_from=array("table_name_id","table_name_email");
 	    $table1_to=array("login_db.mock_test_tbl","login_db.mock_test_tbl");
 	    $tble1=str_replace($table_from, $table1_to, $where_data);
@@ -193,10 +194,10 @@
 		                $res_here=$val;
 		                $res_here['max_page']=$max_page;
 		                $res_here['total_length'] =$total_length;
-		                $Name=$val['name'];
-		                $Email=$val['email'];
-		                $phoneNum=$val['phone'];
-		                $Gender=$val['gender'];
+		                $Name=$val['Name'];
+		                $Email=$val['Email'];
+		                $phoneNum=$val['Phone'];
+		                $Gender=$val['Gender'];
 		                $res_here['name']=$Name;
 		                $res_here['email']=$Email;
 		                $res_here['phoneNum']=$phoneNum;

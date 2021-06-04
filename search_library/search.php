@@ -84,17 +84,24 @@ class searching
             }
              
         }
-        $data['string']=$expert_and_company; 
-        array_push($data['string'], $email); 
-        $data['email']=$email;    
+        
+        $data['string']=[];
+        if($email != ''){
+            array_push($data['string'], $email); 
+            $data['email']=$email;
+        }
+        else{
+            $data['string']=$expert_and_company; 
+        }
+        
         if($data['string'][0]='' AND $data['email']='')
         {
             echo "string";
         }
-
+        
         foreach ($query_data as $key => $value_q)
         {   
-            if(!empty($data['string']))
+            if(empty($data['email']))
             {
                 if ($value_q['type']=='string') 
                 {  
@@ -115,8 +122,10 @@ class searching
             }
             if(!empty($data['email']))
             {
+                $value_q['type'] = "email";
                 if ($value_q['type']=='email') 
                 {   
+                    $value_q['search_col_name']= "email";
                     $query='SELECT '.$value_q['get_colms'].' FROM '.$value_q['table_name'].' WHERE '.$value_q['search_col_name'].'="'.$email.'"';
                     array_push($query_array, $query);
                     array_push($get_ids,$value_q['get_id']); 
